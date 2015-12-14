@@ -16,11 +16,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSURL *booksURL = [NSURL URLWithString:@"http://de-coding-test.s3.amazonaws.com/books.json"];
-    NSData *jsonData = [NSData dataWithContentsOfURL:booksURL];
-    NSError *error = nil;
-    self.bookData = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    [self refresh];
+    NSLog(@"%@",self.responseDictionary);
 }
+
+-(void) refresh
+{
+    NSURLSession *session  = [NSURLSession sharedSession];
+    NSURL *url = [[NSURL alloc] initWithString:@"http://de-coding-test.s3.amazonaws.com/books.json"];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSData *data = [[NSData alloc]initWithContentsOfURL:location];
+        self.responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        self.photosArray = [self.responseDictionary valueForKeyPath:@"imageURL"];
+
+        NSLog(@"%@",self.photosArray);
+        
+    }];
+    
+    [task resume];
+}
+
+//-(UIImage *)downloadImageWithURL:(NSString *)url
+//{
+//    UIImage *image;
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    NSURL *urlFromString = [[NSURL alloc] initWithString:url];
+//    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:urlFromString];
+//    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        image = [[UIImage alloc] initWithContentsOfFile:[location path]];
+//    }
+//    return image;
+//}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -33,26 +60,16 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    //assigns title to cells text label
-    NSMutableArray *titleArray = [self.bookData valueForKey:@"title"];
-    NSString *title = [titleArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = title;
-    
-    //assigns image to cells image view
-    NSMutableArray *imageUrlArray = [self.bookData valueForKey:@"imageURL"];
-    NSString *imageURLString = [imageUrlArray objectAtIndex:indexPath.row];
-    NSData *imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:imageURLString]];
-    UIImage *image = [UIImage imageWithData:imageData];
-    cell.imageView.image = image;
+//    cell.textLabel.text = ?;
+//    cell.imageView.image = ?;
     
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.bookData count];
+    return 10;
 }
-
 @end
 
 
