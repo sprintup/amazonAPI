@@ -11,13 +11,11 @@
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) NSDictionary *responseDictionary;
-@property (nonatomic, strong) NSMutableArray *photosArray;
+@property (nonatomic, strong) NSMutableArray *booksArray;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 -(void) refresh;
--(void)downloadImageWithURL:(NSString *)url;
-
 
 @end
 

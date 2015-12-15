@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Books.h"
 
 @interface ViewController ()
 
@@ -17,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self refresh];
-    NSLog(@"%@",self.responseDictionary);
+    
 }
 
 -(void) refresh
@@ -28,26 +29,24 @@
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSData *data = [[NSData alloc]initWithContentsOfURL:location];
         self.responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        self.photosArray = [self.responseDictionary valueForKeyPath:@"imageURL"];
-
-        NSLog(@"%@",self.photosArray);
         
+        NSInteger count = [[self.responseDictionary valueForKeyPath:@"title"] count];
+        for (NSInteger i = 0 ; i < count; i++) {
+            NSString *bookTitle = [self.responseDictionary valueForKeyPath:@"title"][i];
+            NSString *bookAuthor = [self.responseDictionary valueForKeyPath:@"author"][i];
+            NSString *bookImageURL = [self.responseDictionary valueForKeyPath:@"imageURL"][i];
+
+            Books *book = [[Books alloc] initWithTitle:bookTitle author:bookAuthor imageURL:bookImageURL];
+            [self.booksArray addObject:book];
+        }
+//        NSLog(@"%lu",[[self.responseDictionary valueForKeyPath:@"title"] count]); //number of titles
+//        NSLog(@"%@",[self.responseDictionary valueForKeyPath:@"title"]); //titles
+//        NSLog(@"%@",[self.responseDictionary valueForKeyPath:@"author"]);
+//        NSLog(@"%@",[self.responseDictionary valueForKeyPath:@"imageURL"]);
     }];
     
     [task resume];
 }
-
-//-(UIImage *)downloadImageWithURL:(NSString *)url
-//{
-//    UIImage *image;
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    NSURL *urlFromString = [[NSURL alloc] initWithString:url];
-//    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:urlFromString];
-//    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        image = [[UIImage alloc] initWithContentsOfFile:[location path]];
-//    }
-//    return image;
-//}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -60,7 +59,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-//    cell.textLabel.text = ?;
+    cell.textLabel.text = self.booksArray[indexPath.row];
 //    cell.imageView.image = ?;
     
     return cell;
