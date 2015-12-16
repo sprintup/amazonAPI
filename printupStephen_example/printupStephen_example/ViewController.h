@@ -10,12 +10,7 @@
 
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic) NSDictionary *responseDictionary;
-@property (nonatomic, strong) NSMutableArray *booksArray;
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
--(void) refresh;
 
 @end
 

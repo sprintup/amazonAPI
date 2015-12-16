@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		560D635E1C21D06F005C2A84 /* ApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 560D635D1C21D06F005C2A84 /* ApiManager.m */; };
 		F32DE7B51C17586500E469D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F32DE7B41C17586500E469D4 /* main.m */; };
 		F32DE7B81C17586500E469D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F32DE7B71C17586500E469D4 /* AppDelegate.m */; };
 		F32DE7BB1C17586500E469D4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F32DE7BA1C17586500E469D4 /* ViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		560D635C1C21D06F005C2A84 /* ApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiManager.h; sourceTree = "<group>"; };
+		560D635D1C21D06F005C2A84 /* ApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiManager.m; sourceTree = "<group>"; };
 		F32DE7AF1C17586400E469D4 /* printupStephen_example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = printupStephen_example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F32DE7B31C17586400E469D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F32DE7B41C17586500E469D4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -88,6 +91,8 @@
 				F32DE7B71C17586500E469D4 /* AppDelegate.m */,
 				F32DE7B91C17586500E469D4 /* ViewController.h */,
 				F32DE7BA1C17586500E469D4 /* ViewController.m */,
+				560D635C1C21D06F005C2A84 /* ApiManager.h */,
+				560D635D1C21D06F005C2A84 /* ApiManager.m */,
 				F36264FC1C208F2C0071FBAA /* Books.h */,
 				F36264FD1C208F2C0071FBAA /* Books.m */,
 				F32DE7BC1C17586500E469D4 /* Main.storyboard */,
@@ -224,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				560D635E1C21D06F005C2A84 /* ApiManager.m in Sources */,
 				F36264FE1C208F2C0071FBAA /* Books.m in Sources */,
 				F32DE7BB1C17586500E469D4 /* ViewController.m in Sources */,
 				F32DE7B81C17586500E469D4 /* AppDelegate.m in Sources */,
