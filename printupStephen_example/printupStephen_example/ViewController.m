@@ -17,7 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//Calls API and stores results in singleton
     [[ApiManager getInstance] callApi];
+    
+//Triggers reloadTable method when books are returned from API
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"bookDataRecieved" object:nil];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -32,7 +37,6 @@
     }
     cell.textLabel.text = @"Hello";
 //    cell.imageView.image = ?;
-    
     return cell;
 }
 
@@ -40,6 +44,18 @@
 {
     return 10;
 }
+
+-(void)reloadTable:(NSNotificationCenter *) notification
+{
+    ApiManager *instance = [ApiManager getInstance];
+    
+    NSLog(@"Instance: %@",instance);
+//Why are there no properties on my instance? My plan is to set properties in this class to the properties in the ApiSingleton and then reload the table.
+    
+    NSLog(@"reloadTable called");
+    [self.tableView reloadData];
+}
+
 @end
 
 

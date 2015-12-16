@@ -11,6 +11,8 @@
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+-(void)reloadTable:(NSNotificationCenter *) notification;
+
 
 @end
 
