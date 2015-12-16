@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ApiManager.h"
+#import "Books.h"
 
 @interface ViewController ()
 
@@ -35,24 +36,27 @@
     {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    cell.textLabel.text = @"Hello";
+    NSLog(@"Table Loaded");
+    
+    ApiManager *instance = [ApiManager getInstance];
+    NSLog(@"Instance: %@",instance);
+    Books *book = [instance.booksArray objectAtIndex:indexPath.row];
+    NSLog(@"Book: %@",[instance.booksArray objectAtIndex:1]);
+    NSString *title = book.bookTitle;
+    NSLog(@"Title: %@",title);
+    cell.textLabel.text = title;
 //    cell.imageView.image = ?;
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return 3;
 }
 
 -(void)reloadTable:(NSNotificationCenter *) notification
 {
-    ApiManager *instance = [ApiManager getInstance];
-    
-    NSLog(@"Instance: %@",instance);
-//Why are there no properties on my instance? My plan is to set properties in this class to the properties in the ApiSingleton and then reload the table.
-    
-    NSLog(@"reloadTable called");
+    NSLog(@"reloadTable");
     [self.tableView reloadData];
 }
 

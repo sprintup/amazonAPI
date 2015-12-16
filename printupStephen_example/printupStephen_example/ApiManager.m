@@ -11,17 +11,6 @@
 
 NSString *BASE_URL = @"http://de-coding-test.s3.amazonaws.com/books.json";
 
-@interface ApiManager ()
-
-@property (readonly, strong, nonatomic) NSString *URL;
-@property (nonatomic) NSDictionary *responseDictionary;
-@property (strong, nonatomic) NSString *bookTitle;
-@property (strong, nonatomic) NSString *bookAuthor;
-@property (strong, nonatomic) NSString *bookImageURL;
-@property (nonatomic, strong) NSMutableArray *booksArray;
-
-@end
-
 @implementation ApiManager
 
 +(instancetype) getInstance {
@@ -62,7 +51,7 @@ This method calls the API and puts the JSON into a dictionary, enumerates throug
             Books *book = [[Books alloc] initWithTitle:_bookTitle author:_bookAuthor imageURL:_bookImageURL];
             [_booksArray addObject:book];
         }
-        NSLog(@"It's working %@",_bookTitle);
+        NSLog(@"Api manager is working: %@",_bookTitle);
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"bookDataRecieved"
          object:self];
